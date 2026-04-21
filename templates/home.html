@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IN FORMATION</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- 🔝 NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand" href="/">IN FORMATION</a>
+
+  <div class="ms-auto">
+    <a class="nav-link d-inline text-white" href="/">HOME</a>
+    <a class="nav-link d-inline text-white" href="/formations/433">FORMATIONS</a>
+    <a class="nav-link d-inline text-white" href="/quiz/1">QUIZ</a>
+  </div>
+</nav>
+
+<!-- 🧠 MAIN CONTENT -->
+<div class="container text-center mt-5">
+    <h1>Welcome to IN FORMATION</h1>
+    <p class="lead">Formations in soccer are the positions of the players on the field. Formations range between offensive, defensive, and balanced between the two. </p>
+    <p class="lead">Learn soccer formations and test your knowledge</p>
+
+    <button id="start" class="btn btn-primary btn-lg mt-3">
+        Start Learning
+    </button>
+</div>
+
+<!-- jQuery (needed for your JS) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- JS for start button -->
+<script>
+$("#start").click(function () {
+    fetch("/start", { method: "POST" })
+        .then(() => {
+            window.location.href = "/formations/433";
+        });
+});
+</script>
+
+</body>
+</html>
