@@ -1,0 +1,38 @@
+{
+  "1": {
+    "title": "Question 1",
+    "question": "Which formation is best known for using a lone striker supported by three attacking midfielders?",
+    "options": {
+      "a": "4-4-2",
+      "b": "4-4-3",
+      "c": "4-2-3-1",
+      "d": "5-3-2"
+    },
+    "correct": "c",
+    "explanation": "The 4-2-3-1 features one striker up top with three attacking midfielders behind allowing for strong attacking support while maintaining defensive stability with two holding midfielders."
+  },
+  "2": {
+    "title": "Question 2",
+    "question": "What is a primary attacking advantage of the 4-3-3 formation?",
+    "options": {
+      "a": "Strong central defense with five defenders",
+      "b": "Width in attack through wingers",
+      "c": "Overloading the defensive line with two strikers",
+      "d": "Relies on a speedy striker"
+    },
+    "correct": "b",
+    "explanation": "The 4-3-3 spreads the attack wide using wingers, stretching the opponent’s defense and creating space in the middle for midfielders or the striker." 
+  },
+  "3": {
+    "title": "Question 3",
+    "question": "Your team is protecting a 1–0 lead late in the game and wants to stay compact defensively while still having two players available for counterattacks. Which formation is MOST suitable?",
+    "options": {
+      "a": "4-3-3",
+      "b": "5-3-2",
+      "c": "4-1-2-1-2",
+      "d": "4-2-3-1"
+    },
+    "correct": "b",
+    "explanation": "The 5-3-2 provides a strong defensive line with five defenders, making it harder to break down. Protecting leads is often when managers will substitute their attacking players off for new defending players in order to switch to a more defensive formation."
+  }
+}
