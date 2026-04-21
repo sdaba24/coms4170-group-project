@@ -25,6 +25,7 @@ def home():
 @app.route("/start", methods=["POST"])
 def start():
     user_data["start_time"] = str(datetime.now())
+    user_data["answers"] = [] # resetting when test retaken, can fix later
     return jsonify({"status": "started"})
 
 
