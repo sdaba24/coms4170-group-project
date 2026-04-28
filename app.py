@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
+import json
 
 app = Flask(__name__)
 
@@ -24,6 +25,7 @@ def home():
 @app.route("/start", methods=["POST"])
 def start():
     user_data["start_time"] = str(datetime.now())
+    user_data["answers"] = [] # resetting when test retaken, can fix later
     return jsonify({"status": "started"})
 
 
@@ -49,17 +51,56 @@ def track_formation():
 # ----------------------
 # QUIZ
 # ----------------------
+
+@app.route("/quiz")
+def quiz_home():
+    return render_template("quiz.html")
+
 @app.route("/quiz/<int:question_id>")
 def quiz(question_id):
-    return render_template("quiz.html", question_id=question_id)
+    with open("static/data/quiz.json") as f:
+        quiz_data = json.load(f)
+
+    question = quiz_data.get(str(question_id))
+    total_questions = len(quiz_data)
+
+    if not question:
+        return render_template("results.html")
+    
+    return render_template(
+        "quiz-questions.html",
+        question=question,
+        question_id=question_id,
+        last = (question_id == total_questions)
+    )
 
 
 # Save quiz answer
 @app.route("/submit_answer", methods=["POST"])
 def submit_answer():
-    answer = request.json.get("answer")
-    user_data["answers"].append(answer)
-    return jsonify({"status": "saved"})
+    data = request.json
+    question_id = data.get("question_id")
+    answer = data.get("answer")
+
+    # load quiz data
+    with open("static/data/quiz.json") as f:
+        quiz_data = json.load(f)
+    
+    question = quiz_data[str(question_id)]
+    correct = question["correct"]
+    explanation = question["explanation"]
+
+    is_correct = (answer == correct)
+    user_data["answers"].append({
+        "question_id": question_id,
+        "answer": answer,
+        "correct": is_correct 
+        })
+    
+    return jsonify({
+        "correct": is_correct,
+        "explanation": explanation,
+        "status": "saved"})
 
 
 # ----------------------
@@ -67,15 +108,13 @@ def submit_answer():
 # ----------------------
 @app.route("/results")
 def results():
-    # Example correct answers (you can move this to JSON later)
-    correct_answers = [1, 0, 1, 1, 0]
+    with open("static/data/quiz.json") as f:
+        quiz_data = json.load(f)
+    
+    total = len(quiz_data)
+    correct = sum(1 for a in user_data["answers"] if a["correct"])
 
-    score = 0
-    for i in range(min(len(user_data["answers"]), len(correct_answers))):
-        if user_data["answers"][i] == correct_answers[i]:
-            score += 1
-
-    return render_template("results.html", score=score)
+    return render_template("results.html", score=correct, total=total)
 
 
 # ----------------------
