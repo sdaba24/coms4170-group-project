@@ -3,16 +3,16 @@
     "title": "4-4-2",
     "description": "Balanced formation with two strikers. This setup provides strong coverage across the width of the pitch.",
     "roles": {
-      "att": "The two Center Forwards (CF) work as a pair to pressure the opposing center-backs and create goal-scoring opportunities.",
+      "att": "The two Center Forwards (CF) work as a pair to pressure the opposing center-backs and create goal-scoring opportunities.Click here to see.",
       "mid": "The four midfielders must stay disciplined to avoid being outnumbered centrally while also supporting wide play.",
       "def": "The back four provides a traditional flat defensive line, relying on organization and communication."
     }
   },
   "433": {
     "title": "4-3-3",
-    "description": "An attacking formation with wingers and a central striker, ideal for high pressing and possession-based play.",
+    "description": "An attacking formation with wingers (players who play closest to the edge of the field) and a central striker. The wingers make this formation ideal for offense as it spreads the attack wide using wingers, stretching the opponent's defense.",
     "roles": {
-      "att": "The front three includes a central striker supported by two wingers who stretch the defense and cut inside.",
+      "att": "The front three includes a central striker supported by two wingers who stretch the defense and cut inside. Click here to see.",
       "mid": "The midfield trio typically consists of one defensive midfielder and two advanced playmakers.",
       "def": "Fullbacks are expected to push forward to provide width while center-backs maintain defensive stability."
     }
@@ -21,23 +21,23 @@
     "title": "4-2-3-1",
     "description": "A versatile and modern formation that balances defensive stability with attacking creativity.",
     "roles": {
-      "att": "The lone striker is supported by three attacking midfielders who create chances and exploit space between lines.",
+      "att": "The lone striker is supported by three attacking midfielders who create chances and exploit space between lines. Click here to see.",
       "mid": "Two defensive midfielders provide protection to the back line and help control possession.",
       "def": "The back four remains compact, with fullbacks occasionally joining the attack."
     }
   },
   "41212": {
     "title": "4-1-2-1-2",
-    "description": "A narrow formation that focuses on central play and quick passing combinations.",
+    "description": "A narrow formation that focuses on central play and quick passing combinations. The lack of players on the edges does create a vulnerability on the wings that could be exploited by opposing teams attack.",
     "roles": {
-      "att": "Two strikers work closely together, often playing quick one-twos to break through defenses.",
+      "att": "Two strikers work closely together, often playing quick one-twos to break through defenses. Click here to see.",
       "mid": "The midfield diamond includes a defensive midfielder, two central midfielders, and an attacking midfielder at the tip.",
       "def": "The back four must handle wide pressure since the formation lacks natural width."
     }
   },
   "532": {
     "title": "5-3-2",
-    "description": "A defensive formation that uses three center-backs and wing-backs for solidity and counter-attacking opportunities.",
+    "description": "A defensive formation that uses three center-backs and wing-backs for solidity and counter-attacking opportunities. It provides a strong defensive line with five defenders, making it harder to break through. Ideal for situations where the team is more focused on defending goals/protecting leads than scoring them.",
     "roles": {
       "att": "Two strikers stay forward to capitalize on counter-attacks and long balls.",
       "mid": "The three midfielders focus on maintaining shape and transitioning quickly from defense to attack.",
