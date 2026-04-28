@@ -4,39 +4,96 @@
     <meta charset="UTF-8">
     <title>IN FORMATION</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* 🖼️ BACKGROUND IMAGE SETUP */
+        /* 1. Brighter Background */
+        body {
+            /* Changed from 0.6 to 0.3 for a much brighter image */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                            url('https://media.istockphoto.com/id/1637717332/photo/football-on-grass.jpg?s=612x612&w=0&k=20&c=yZzge-mFrHrABBhG7ECDzuOoiBo9esD_yBk3yAqigX8=');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        /* 2. Smaller, more compact Textbox */
+        .hero-section {
+            background: rgba(0, 0, 0, 0.75); 
+            padding: 30px;        /* Reduced from 50px */
+            border-radius: 15px;
+            margin-top: 5vh;      /* Reduced from 10vh to pull it up higher */
+            max-width: 650px;     /* Slightly narrower */
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* 3. Smaller Typography to save space */
+        h1 {
+            font-size: 3rem;      /* Reduced from 4rem */
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .lead {
+            font-size: 1.1rem;    /* Slightly smaller font */
+            line-height: 1.6;     /* Tighter line spacing */
+            margin-bottom: 15px;  /* Reduced spacing between paragraphs */
+        }
+        .btn-primary {
+            background-color: #1b5e20;
+            border: none;
+            padding: 15px 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e7d32;
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- 🔝 NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
   <a class="navbar-brand" href="/">IN FORMATION</a>
 
   <div class="ms-auto">
-    <a class="nav-link d-inline text-white" href="/">HOME</a>
-    <a class="nav-link d-inline text-white" href="/formations/433">FORMATIONS</a>
+    <a class="nav-link d-inline text-white me-3" href="/">HOME</a>
+    <a class="nav-link d-inline text-white me-3" href="/formations/433">FORMATIONS</a>
     <a class="nav-link d-inline text-white" href="/quiz/1">QUIZ</a>
   </div>
 </nav>
 
-<!--MAIN CONTENT -->
-<div class="container text-center mt-5">
-    <h1>IN FORMATION</h1>
-    <p class="lead">Formations in soccer are the positions of the players on the field, ranging between offensive, defensive, and balanced between the two. Coaches pick the formations before the game starts based on their players' strengths, their opposition's strengths, and whether they want to protect leads.</p>
-    <p class="lead">Formations are read in order of defense to offense, i.e. the first number is the line of players closest to the goal keeper. Players stay within their line as they move up and down the field.</p>
-    <p class="lead">Learn soccer formations and test your knowledge</p>
+<div class="container text-center">
+    <div class="hero-section">
+        <h1>IN FORMATION</h1>
+        
+        <p class="lead">Formations in soccer are the positions of the players on the field, ranging between offensive, defensive, and balanced between the two. Coaches pick the formations before the game starts based on their players' strengths, their opposition's strengths, and whether they want to protect leads.</p>
+        
+        <p class="lead">Formations are read in order of defense to offense, i.e. the first number is the line of players closest to the goalkeeper. Players stay within their line as they move up and down the field.</p>
+        
+        <p class="lead fw-bold">Learn soccer formations and test your knowledge.</p>
 
-    <button id="start" class="btn btn-primary btn-lg mt-3">
-        Start Learning
-    </button>
+        <button id="start" class="btn btn-primary btn-lg mt-3">
+            Start Learning
+        </button>
+    </div>
 </div>
 
-<!-- jQuery (needed for your JS) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- JS for start button -->
 <script>
 $("#start").click(function () {
     fetch("/start", { method: "POST" })
