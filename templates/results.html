@@ -4,46 +4,138 @@
     <meta charset="UTF-8">
     <title>IN FORMATION</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                            url('https://media.istockphoto.com/id/1637717332/photo/football-on-grass.jpg?s=612x612&w=0&k=20&c=yZzge-mFrHrABBhG7ECDzuOoiBo9esD_yBk3yAqigX8=');
+            background-size: 160%;
+            background-position: right 60%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .results-box {
+            background: white;
+            border: 2px solid #1b5e20;
+            border-radius: 12px;
+            padding: 50px 40px;
+            max-width: 600px;
+            margin: 10vh auto 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .results-box h1 {
+            color: #1b5e20;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+
+        .score {
+            font-size: 5rem;
+            font-weight: 900;
+            color: #1b5e20;
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .message {
+            font-size: 1.15rem;
+            color: #444;
+            margin: 20px 0 30px;
+            line-height: 1.6;
+        }
+
+        .emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .btn-results {
+            background-color: #1b5e20;
+            border-color: #1b5e20;
+            color: white;
+            padding: 12px 30px;
+            font-weight: bold;
+        }
+
+        .btn-results:hover {
+            background-color: #2e7d32;
+            border-color: #2e7d32;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- 🔝 NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <a class="navbar-brand" href="/">IN FORMATION</a>
-
-    <div class="ms-auto">
-        <a class="nav-link d-inline text-white" href="/">HOME</a>
-        <a class="nav-link d-inline text-white" href="/formations/433">FORMATIONS</a>
-        <a class="nav-link d-inline text-white" href="/quiz">QUIZ</a>
-    </div>
+        <a class="navbar-brand" href="/">IN FORMATION</a>
+        <div class="ms-auto">
+            <a class="nav-link d-inline text-white me-3" href="/">HOME</a>
+            <a class="nav-link d-inline text-white me-3" href="/formations/433">FORMATIONS</a>
+            <a class="nav-link d-inline text-white" href="/quiz">QUIZ</a>
+        </div>
     </nav>
 
-    <div class="container text-center mt-5">
-        <h1>Your Results</h1>
-        <h2>{{score}} / {{total}}</h2>
-        
-        <button class="btn btn-primary m-2 review-btn">Back to Review</button>
-        <button class="btn btn-primary m-2 retake-btn">Retake Quiz</button>
+    <div class="container">
+        <div class="results-box">
+
+            {% if score == 5 %}
+                <h1>Your Results</h1>
+                <div class="score">{{ score }}/{{ total }}</div>
+                <div class="score-label">Score</div>
+                <p class="message">Outstanding! You aced it — looks like you really know your formations! </p>
+
+            {% elif score >= 3 %}
+                <h1>Your Results</h1>
+                <div class="score">{{ score }}/{{ total }}</div>
+                <div class="score-label">Score</div>
+                <p class="message">Good effort! There's still some room for improvement — head back to review the formations and give it another try.</p>
+
+            {% else %}
+                <h1>Your Results</h1>
+                <div class="score">{{ score }}/{{ total }}</div>
+                <div class="score-label">Score</div>
+                <p class="message">No worries — formations take time to learn! Go back through the lessons and you'll get there. </p>
+            {% endif %}
+
+            <button class="btn btn-secondary btn-lg m-2 review-btn">Back to Review</button>
+            <button class="btn btn-results btn-lg m-2 retake-btn">Take New Quiz</button>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <script>
         $(document).on("click", ".review-btn", function () {
-        fetch("/review", { method: "POST" })
-            .then(() => {
-                window.location.href = "/formations/433";
-            });
+            fetch("/review", { method: "POST" })
+                .then(() => {
+                    window.location.href = "/formations/433";
+                });
         });
 
         $(document).on("click", ".retake-btn", function () {
-        fetch("/start", { method: "POST" })
-            .then(() => {
-                window.location.href = "/quiz/1";
-            });
+            fetch("/start", { method: "POST" })
+                .then(() => {
+                    window.location.href = "/quiz/1";
+                });
         });
     </script>
 </body>

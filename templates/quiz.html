@@ -15,7 +15,7 @@
 
         body {
             background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-                            url('https://media.istockphoto.com/id/472347896/photo/striped-soccer-field.jpg?s=1024x1024&w=is&k=20&c=9CU5BTONIlj487oiIfamZ8cD9Y8yreb62Kn6XTrkUcI=');
+                            url('https://media.istockphoto.com/id/1637717332/photo/football-on-grass.jpg?s=612x612&w=0&k=20&c=yZzge-mFrHrABBhG7ECDzuOoiBo9esD_yBk3yAqigX8=');
             background-size: cover;
             background-position: bottom right;
             background-repeat: no-repeat;
@@ -43,6 +43,16 @@
             color: #444;
         }
 
+        #startQuiz {
+            background-color: #28855d;
+            border-color: #28855d;
+        }
+
+        #startQuiz:hover {
+            background-color: #6fac8e;
+            border-color: #6fac8e;
+        }
+
     </style>
 </head>
 
@@ -61,6 +71,10 @@
     <div class="quiz-box">
         <h1>How well did you learn?</h1>
         <p class="lead">Take a short quiz to test your understanding of soccer formations and the tactics behind them.</p>
+
+        <div class="alert alert-warning mt-3" style="font-size: 16px;">
+            Your progress is saved automatically. You can leave and return to the quiz at any time.
+         </div>
 
         <button id="review" class="btn btn-secondary btn-lg mt-3">Back to Review</button>
         <button id="startQuiz" class="btn btn-primary btn-lg mt-3">Take Quiz</button>

@@ -15,7 +15,7 @@
 
         body {
             background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-                            url('https://media.istockphoto.com/id/472347896/photo/striped-soccer-field.jpg?s=1024x1024&w=is&k=20&c=9CU5BTONIlj487oiIfamZ8cD9Y8yreb62Kn6XTrkUcI=');
+                            url('https://media.istockphoto.com/id/1637717332/photo/football-on-grass.jpg?s=612x612&w=0&k=20&c=yZzge-mFrHrABBhG7ECDzuOoiBo9esD_yBk3yAqigX8=');
             background-size: cover;
             background-position: bottom right;
             background-repeat: no-repeat;
@@ -41,6 +41,39 @@
 
         .quiz-box .lead {
             color: #444;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin: 8px 0 !important;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background-color: #28855d;
+            border-color: #28855d;
+        }
+
+        .option-btn:hover {
+            background-color: #6fac8e;
+            border-color: #6fac8e;
+        }
+
+        .option-btn:disabled, .option-btn.disabled {
+            background-color: #28855d;
+            border-color: #28855d;
+            opacity: 0.65;
+        }
+
+        .option-btn.correct {
+            background-color: #6fac8e;
+            border: 3px solid #00e676;
+            opacity: .8;
+        }
+
+        .option-btn.wrong {
+            background-color: #6fac8e;
+            border: 3px solid #791715;
+            opacity: .8;
         }
 
     </style>
@@ -70,12 +103,12 @@
         <h2>{{question.title}}</h2>
         <p class="lead">{{question.question}}</p>
 
-        <div id="options">
+        <div id="options" style="max-width: 500px; margin: 0 auto;">
             {% for key, value in question.options.items() %}
-            <button class="btn btn-primary m-2 option-btn {% if already_answered %}disabled{% endif %}"
+            <button class="btn btn-primary option-btn {% if already_answered %}disabled{% endif %}"
                     data-value="{{key}}"
                     {% if already_answered %}disabled{% endif %}>
-                {{ value }}
+                <strong>{{ key | upper }}.</strong> {{ value }}
             </button>
             {% endfor %}
         </div>
@@ -103,10 +136,10 @@
     $(document).on("click", ".option-btn", function () {
         if ($(this).prop("disabled")) return;
 
-        // Disable all buttons immediately
+        let $clicked = $(this);  // save reference to clicked button
         $(".option-btn").prop("disabled", true).addClass("disabled");
 
-        let selected = $(this).data("value");
+        let selected = $clicked.data("value");
 
         fetch("/submit_answer", {
             method: "POST",
@@ -118,6 +151,13 @@
         })
         .then(res => res.json())
         .then(data => {
+            // Add green or red border to the clicked button
+            if (data.correct) {
+                $clicked.addClass("correct");
+            } else {
+                $clicked.addClass("wrong");
+            }
+
             let reviewUrl = data.review_url;
             let feedbackHtml = "";
             if (data.correct) {

@@ -62,6 +62,15 @@ def track_formation():
 
 @app.route("/quiz")
 def quiz_home():
+    if user_data["answers"]:
+        answered_ids = {str(a["question_id"]) for a in user_data["answers"]}
+        with open("static/data/quiz.json") as f:
+            quiz_data = json.load(f)
+        total_questions = len(quiz_data)
+        for i in range(1, total_questions + 1):
+            if str(i) not in answered_ids:
+                return redirect(f"/quiz/{i}")
+        return redirect("/results")
     return render_template("quiz.html")
 
 @app.route("/quiz/<int:question_id>")
