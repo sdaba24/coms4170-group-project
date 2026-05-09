@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 from datetime import datetime
 import json
 
@@ -9,6 +9,14 @@ user_data = {
     "start_time": None,
     "formations_visited": [],
     "answers": []
+}
+
+question_to_formation = {
+    "1": "4231",
+    "2": "433",
+    "3": "532",
+    "4": "41212",
+    "5": "4231"
 }
 
 # ----------------------
@@ -61,17 +69,39 @@ def quiz(question_id):
     with open("static/data/quiz.json") as f:
         quiz_data = json.load(f)
 
-    question = quiz_data.get(str(question_id))
     total_questions = len(quiz_data)
 
+    # If landing on question 1, redirect to first unanswered question
+    if question_id == 1:
+        answered_ids = {str(a["question_id"]) for a in user_data["answers"]}
+        for i in range(1, total_questions + 1):
+            if str(i) not in answered_ids:
+                question_id = i
+                break
+        else:
+            return redirect("/results")
+
+    question = quiz_data.get(str(question_id))
     if not question:
-        return render_template("results.html")
-    
+        return redirect("/results")
+
+    already_answered = any(
+        str(a["question_id"]) == str(question_id) for a in user_data["answers"]
+    )
+    saved_answer = None
+    if already_answered:
+        saved_answer = next(
+            a for a in user_data["answers"] if str(a["question_id"]) == str(question_id)
+        )
+
     return render_template(
         "quiz-questions.html",
         question=question,
         question_id=question_id,
-        last = (question_id == total_questions)
+        last=(question_id == total_questions),
+        already_answered=already_answered,
+        saved_answer=saved_answer,
+        review_formation=question_to_formation.get(str(question_id), "433")
     )
 
 
@@ -97,11 +127,14 @@ def submit_answer():
         "correct": is_correct 
         })
     
+    review_formation = question_to_formation.get(str(question_id), "433")
+    
     return jsonify({
         "correct": is_correct,
         "explanation": explanation,
-        "status": "saved"})
-
+        "review_url": f"/formations/{review_formation}",
+        "status": "saved"
+    })
 
 # ----------------------
 # RESULTS

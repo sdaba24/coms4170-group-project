@@ -8,25 +8,40 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        body { 
-            background-color: #f0f2f5; 
+        body, html {
+            height: 100%;
             margin: 0;
-            overflow-x: hidden; /* Prevents side-scrolling */
         }
 
-        /* 1. NAVBARS */
-        .formation-bar {
-            background-color: #1b5e20;
-            padding: 20px; 
-            font-size: 1.3rem; 
-            
-            /* The Magic Sauce */
-            display: flex;            /* Turns the bar into a flex container */
-            justify-content: space-evenly; /* Spaces links evenly across the width */
-            align-items: center;      /* Centers them vertically */
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                            url('https://media.istockphoto.com/id/472347896/photo/striped-soccer-field.jpg?s=1024x1024&w=is&k=20&c=9CU5BTONIlj487oiIfamZ8cD9Y8yreb62Kn6XTrkUcI=');
+            background-size: cover;
+            background-position: bottom right;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
         }
 
+        .quiz-box {
+            background: white;
+            color: #333;
+            border: 2px solid #1b5e20;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 650px;
+            margin: 5vh auto 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
 
+        .quiz-box h1 {
+            color: #1b5e20;
+            font-weight: 800;
+        }
+
+        .quiz-box .lead {
+            color: #444;
+        }
 
     </style>
 </head>
@@ -42,19 +57,14 @@
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h1>How well did you learn?</h1>
-    <p class="lead">You will now take a short quiz to test your understanding of how formations in 
-        soccer work and the tactics behind them.</p>
-    <p class="lead">Learn soccer formations and test your knowledge</p>
+<div class="container text-center mt-5">
+    <div class="quiz-box">
+        <h1>How well did you learn?</h1>
+        <p class="lead">Take a short quiz to test your understanding of soccer formations and the tactics behind them.</p>
 
-     <button id="review" class="btn btn-primary btn-lg mt-3">
-       Back to Review
-    </button>
-
-    <button id="startQuiz" class="btn btn-primary btn-lg mt-3">
-       Take Quiz
-    </button>
+        <button id="review" class="btn btn-secondary btn-lg mt-3">Back to Review</button>
+        <button id="startQuiz" class="btn btn-primary btn-lg mt-3">Take Quiz</button>
+    </div>
 </div>
 
 <!-- jQuery (needed for your JS) -->
@@ -63,11 +73,8 @@
 <!-- JS for start button -->
 <script>
     $("#startQuiz").click(function () {
-        fetch("/start", { method: "POST" })
-            .then(() => {
-                window.location.href = "/quiz/1";
-            });
-    });
+        window.location.href = "/quiz/1";
+    }); 
 
     $("#review").click(function () {
         fetch("/review", { method: "POST" })

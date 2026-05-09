@@ -8,24 +8,40 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        body { 
-            background-color: #f0f2f5; 
+        body, html {
+            height: 100%;
             margin: 0;
-            overflow-x: hidden; /* Prevents side-scrolling */
         }
 
-        /* 1. NAVBARS */
-        .questions-bar {
-            background-color: rgb(56, 164, 227);
-            padding: 20px; 
-            font-size: 1.3rem; 
-            
-            /* The Magic Sauce */
-            display: flex;            /* Turns the bar into a flex container */
-            justify-content: space-evenly; /* Spaces links evenly across the width */
-            align-items: center;      /* Centers them vertically */
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                            url('https://media.istockphoto.com/id/472347896/photo/striped-soccer-field.jpg?s=1024x1024&w=is&k=20&c=9CU5BTONIlj487oiIfamZ8cD9Y8yreb62Kn6XTrkUcI=');
+            background-size: cover;
+            background-position: bottom right;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
         }
 
+        .quiz-box {
+            background: white;
+            color: #333;
+            border: 2px solid #1b5e20;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 700px;
+            margin: 5vh auto 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .quiz-box h2 {
+            color: #1b5e20;
+            font-weight: 800;
+        }
+
+        .quiz-box .lead {
+            color: #444;
+        }
 
     </style>
 </head>
@@ -50,19 +66,31 @@
 </div> -->
 
 <div class="container text-center mt-5">
-    <h2>{{question.title}}</h2>
-    <p class="lead">{{question.question}}</p>
+    <div class="quiz-box">
+        <h2>{{question.title}}</h2>
+        <p class="lead">{{question.question}}</p>
 
-    <div id="options">
-        {% for key, value in question.options.items() %}
-        <button class="btn btn-primary m-2 option-btn" data-value="{{key}}">
-            {{ value }}
-        </button>
-        {% endfor %}
+        <div id="options">
+            {% for key, value in question.options.items() %}
+            <button class="btn btn-primary m-2 option-btn {% if already_answered %}disabled{% endif %}"
+                    data-value="{{key}}"
+                    {% if already_answered %}disabled{% endif %}>
+                {{ value }}
+            </button>
+            {% endfor %}
+        </div>
+
+        <div id="feedback" class="mt-4">
+        {% if already_answered %}
+            <div class="alert {% if saved_answer.correct %}alert-success{% else %}alert-danger{% endif %}">
+                {% if saved_answer.correct %}Correct!{% else %}Incorrect{% endif %}
+                <br>{{ question.explanation }}
+            </div>
+            <button class="btn btn-secondary m-2 review-btn" data-url="/formations/{{ review_formation }}">Back to Review</button>
+            <button class="btn btn-primary m-2 next-btn">Next</button>
+        {% endif %}
+        </div>
     </div>
-
-    <div id="feedback" class="mt-4"></div>
-
 </div>
 
 <!-- jQuery (needed for your JS) -->
@@ -73,50 +101,48 @@
 <script>
 
     $(document).on("click", ".option-btn", function () {
+        if ($(this).prop("disabled")) return;
+
+        // Disable all buttons immediately
+        $(".option-btn").prop("disabled", true).addClass("disabled");
+
         let selected = $(this).data("value");
 
-        fetch("/submit_answer", { 
+        fetch("/submit_answer", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 question_id: "{{ question_id }}",
                 answer: selected
             })
-         })
-         .then(res => res.json())
-         .then(data => {
-            let feedback = "";
-            if (data.correct){
-                feedback = `<div class="alert alert-success">
-                    Correct! <br>${data.explanation}<br>
-                </div>
-                <button class="btn btn-primary m-2 review-btn">Back to Review</button>
-                <button class="btn btn-primary m-2 next-btn">Next</button>`;
+        })
+        .then(res => res.json())
+        .then(data => {
+            let reviewUrl = data.review_url;
+            let feedbackHtml = "";
+            if (data.correct) {
+                feedbackHtml = `<div class="alert alert-success">Correct!<br>${data.explanation}</div>`;
+            } else {
+                feedbackHtml = `<div class="alert alert-danger">Incorrect<br>${data.explanation}</div>`;
             }
-            else {  // need to implement "back to review" routing to specific topic page
-                feedback = `<div class="alert alert-danger">
-                    Incorrect <br>${data.explanation}<br>
-                </div>
-                <button class="btn btn-primary m-2 review-btn">Back to Review</button>
+            feedbackHtml += `
+                <button class="btn btn-secondary m-2 review-btn" data-url="${reviewUrl}">Back to Review</button>
                 <button class="btn btn-primary m-2 next-btn">Next</button>`;
-            }
-            $("#feedback").html(feedback);
-         });
+            $("#feedback").html(feedbackHtml);
+        });
     });
-    
+
     $(document).on("click", ".next-btn", function () {
         {% if last %}
             window.location.href = "/results";
         {% else %}
-            window.location.href = "/quiz/{{ question_id + 1}}";
+            window.location.href = "/quiz/{{ question_id + 1 }}";
         {% endif %}
     });
 
     $(document).on("click", ".review-btn", function () {
-        fetch("/review", { method: "POST" })
-            .then(() => {
-                window.location.href = "/formations/433";
-            });
+        let url = $(this).data("url");
+        window.location.href = url;
     });
 </script>
 

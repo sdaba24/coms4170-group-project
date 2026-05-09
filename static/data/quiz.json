@@ -34,5 +34,29 @@
     },
     "correct": "b",
     "explanation": "The 5-3-2 provides a strong defensive line with five defenders, making it harder to break down. Protecting leads is often when managers will substitute their attacking players off for new defending players in order to switch to a more defensive formation."
+  },
+   "4": {
+    "title": "Question 4",
+    "question": "What is a common weakness of the 4-1-2-1-2 (diamond midfield)?",
+    "options": {
+      "a": "Lack of central midfield presence",
+      "b": "Vulnerability on the wings",
+      "c": "Too many defenders",
+      "d": "No attacking support"
+    },
+    "correct": "b",
+    "explanation": "The 4-1-2-1-2 is very narrow, focusing play through the center. Because it lacks natural wingers, teams using it can be exposed on the flanks."
+  },
+  "5": {
+    "title": "Question 5",
+    "question": "How many strikers are in the 4-2-3-1 formation?",
+    "options": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "4"
+    },
+    "correct": "a",
+    "explanation": "There is one lone striker that is supported by three attacking midfielders."
   }
 }
