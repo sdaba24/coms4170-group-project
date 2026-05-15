@@ -14,31 +14,29 @@
             overflow-x: hidden; /* Prevents side-scrolling */
         }
 
-        /* 1. NAVBARS */
         .formation-bar {
             background-color: #1b5e20;
             padding: 20px; 
             font-size: 1.3rem; 
             
-            /* The Magic Sauce */
-            display: flex;            /* Turns the bar into a flex container */
-            justify-content: space-evenly; /* Spaces links evenly across the width */
-            align-items: center;      /* Centers them vertically */
+            display: flex;         
+            justify-content: space-evenly;
+            align-items: center;      
         }
 
         .formation-link.active-link {
             padding-bottom: 5px;
-            color: #a5d6a7 !important; /* Lighter green to stand out */
+            color: #a5d6a7 !important; 
             font-weight: bold;
         }
 
         .formation-link {
             color: white;
-            margin: 0;               /* Remove the old manual margins */
+            margin: 0;               
             font-weight: bold;
             text-decoration: none;
-            flex: 1;                 /* Optional: gives each link equal "hit area" */
-            text-align: center;      /* Centers text within that hit area */
+            flex: 1;                 
+            text-align: center;      
         }
 
         .formation-link:hover { 
@@ -47,7 +45,6 @@
 
         }
 
-        /* 2. THE MAIN LAYOUT WRAPPER */
 
         .main-content-wrapper {
             display: flex;
@@ -56,13 +53,11 @@
             gap: 20px;
             padding: 20px;
             width: 100vw;
-            /* 100vh (screen height) minus approx 160px for the two navbars */
             height: calc(100vh - 165px); 
             margin: 0;
-            overflow: hidden; /* Prevents the wrapper itself from scrolling */
+            overflow: hidden; 
         }
 
-        /* 3. THE INFO SIDEBAR (Left Column) */
         .info-sidebar {
             flex: 0 0 350px;
             background: white;
@@ -70,8 +65,8 @@
             border-radius: 12px;
             border-top: 10px solid #1b5e20;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            height: 100%; /* Fill the wrapper */
-            overflow-y: auto; /* If text is too long, ONLY the sidebar scrolls */
+            height: 100%;
+            overflow-y: auto; 
             text-align: left;
         }
 
@@ -79,9 +74,8 @@
         .info-sidebar hr { border-top: 2px solid #eee; margin: 20px 0; }
         .info-sidebar p { line-height: 1.6; font-size: 1.1rem; color: #444; }
 
-        /* 4. THE PITCH (Right Column) */
         .pitch-container {
-            flex: 1; /* Grows to fill available space */
+            flex: 1; 
             position: relative;
             max-width: 1200px; 
             height: 100%;     
@@ -89,14 +83,12 @@
             border: 6px solid white;
             border-radius: 15px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            /* Pitch Markings */
             background-image: 
                 linear-gradient(to right, rgba(255,255,255,0.3) 2px, transparent 2px),
                 radial-gradient(circle at center, transparent 20%, rgba(255,255,255,0.3) 21%, transparent 22%);
             background-size: 50% 100%, 100% 100%;
         }
 
-        /* 5. PLAYER STYLING */
         .player {
             position: absolute;
             width: 65px; 
@@ -119,7 +111,6 @@
             filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
         }
 
-        /* The highlight effect */
         .player.highlight-active {
             background: #ffd700; /* Gold color */
             transform: scale(1.2);
